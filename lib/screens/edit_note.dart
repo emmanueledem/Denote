@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobbit/core/constants.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import '../core/constants.dart';
 
 class EditNote extends StatefulWidget {
   const EditNote({Key? key}) : super(key: key);

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:mobbit/core/constants.dart';
-import 'package:mobbit/model/notes.dart';
-import 'package:mobbit/services/providers/notes_provider.dart';
-import 'package:mobbit/widgets/note.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+
+import '../core/constants.dart';
 
 class CreateNote extends StatefulWidget {
   const CreateNote({Key? key}) : super(key: key);
@@ -110,26 +108,26 @@ class _CreateNoteState extends State<CreateNote> {
                                     borderRadius: BorderRadius.circular(30),
                                     child: MaterialButton(
                                       onPressed: () async {
-                                        var notesProvider =
-                                            Provider.of<NotesProvider>(context,
-                                                listen: false);
-                                        if (_formKey.currentState!.validate()) {
-                                          notesProvider.colorPicker();
-                                          setState(() {
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          });
-                                          Logger().d(notesProvider.colorCode);
-                                          await notesProvider.addNote(
-                                            Notes(
-                                              noteTitle: _noteTitle.text,
-                                              noteDescription: _noteBody.text,
-                                              dateAdded: DateTime.now(),
-                                            ),
-                                          );
-                                          await notesProvider.getNotes();
-                                          Navigator.pop(context);
-                                        }
+                                        // var notesProvider =
+                                        //     Provider.of<NotesProvider>(context,
+                                        //         listen: false);
+                                        // if (_formKey.currentState!.validate()) {
+                                        //   notesProvider.colorPicker();
+                                        //   setState(() {
+                                        //     FocusManager.instance.primaryFocus
+                                        //         ?.unfocus();
+                                        //   });
+                                        //   Logger().d(notesProvider.colorCode);
+                                        //   await notesProvider.addNote(
+                                        //     Notes(
+                                        //       noteTitle: _noteTitle.text,
+                                        //       noteDescription: _noteBody.text,
+                                        //       dateAdded: DateTime.now(),
+                                        //     ),
+                                        //   );
+                                        //   await notesProvider.getNotes();
+                                        //   Navigator.pop(context);
+                                        // }
                                       },
                                       minWidth: 365,
                                       height: 51,

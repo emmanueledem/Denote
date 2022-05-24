@@ -27,3 +27,8 @@ const kEditProfileInputDecorationStyle = InputDecoration(
     fontSize: 16,
   ),
 );
+
+
+
+//  var finalDate =  
+//                           DateFormat.yMEd().add_jms().format(note.dateAdded);

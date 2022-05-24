@@ -1,11 +1,7 @@
+import 'package:denote/widgets/note.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:mobbit/core/navigators/navigators.dart';
-import 'package:mobbit/model/notes.dart';
-import 'package:mobbit/services/providers/notes_provider.dart';
-import 'package:mobbit/widgets/error_alert.dart';
-import 'package:mobbit/widgets/note.dart';
-import 'package:provider/provider.dart';
+
+import '../core/navigators/navigators.dart';
 
 class AllTask extends StatefulWidget {
   const AllTask({Key? key}) : super(key: key);
@@ -23,12 +19,11 @@ class _AllTaskState extends State<AllTask> {
   }
 
   Future _handleAllNotes() async {
-    Provider.of<NotesProvider>(context, listen: false).getNotes();
+    // Provider.of<NotesProvider>(context, listen: false).getNotes();
   }
 
   @override
   Widget build(BuildContext context) {
-    var allNotes = Provider.of<NotesProvider>(context, listen: true);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -50,120 +45,109 @@ class _AllTaskState extends State<AllTask> {
             ],
           ),
           actions: [
-            allNotes.noteList.isEmpty
-                ? PopupMenuButton(
-                    icon: const Icon(Icons.more_horiz),
-                    itemBuilder: (context) {
-                      return const [
-                        PopupMenuItem(
-                          value: 'Add Note',
-                          child: Text('Add Note'),
-                        ),
-                      ];
-                    },
-                    onSelected: (String value) {
-                      allNotes.deleteAllNotes();
-                      Navigator.pushNamed(context, Routes.createNote);
-                    },
-                  )
-                : PopupMenuButton(
-                    icon: const Icon(Icons.more_horiz),
-                    itemBuilder: (context) {
-                      return const [
-                        PopupMenuItem(
-                          value: 'newest',
-                          child: Text('Sort By Newest'),
-                        ),
-                        PopupMenuItem(
-                          value: 'oldest',
-                          child: Text('Sort By Oldest'),
-                        ),
-                        PopupMenuItem(
-                          value: 'deleteAll',
-                          child: Text('Clear All Notes'),
-                        )
-                      ];
-                    },
-                    onSelected: (String value) {
-                      value == 'deleteAll'
-                          ? errorAlertMessage(context, () {
-                              allNotes.deleteAllNotes();
-                            })
-                          : allNotes.sortNotes(value);
-                    },
+            PopupMenuButton(
+              icon: const Icon(Icons.more_horiz),
+              itemBuilder: (context) {
+                return const [
+                  PopupMenuItem(
+                    value: 'Add Note',
+                    child: Text('Add Note'),
                   ),
+                ];
+              },
+              onSelected: (String value) {},
+            )
+            //  PopupMenuButton(
+            //     icon: const Icon(Icons.more_horiz),
+            //     itemBuilder: (context) {
+            //       return const [
+            //         PopupMenuItem(
+            //           value: 'newest',
+            //           child: Text('Sort By Newest'),
+            //         ),
+            //         PopupMenuItem(
+            //           value: 'oldest',
+            //           child: Text('Sort By Oldest'),
+            //         ),
+            //         PopupMenuItem(
+            //           value: 'deleteAll',
+            //           child: Text('Clear All Notes'),
+            //         )
+            //       ];
+            //     },
+            //     onSelected: (String value) {
+
+            //     },
+            //   ),
           ],
         ),
-        body: allNotes.noteList.isEmpty
-            ? Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.mode_edit,
-                          size: 40,
-                          color: Colors.blue,
-                        ),
-                        Expanded(
-                          child: Text(
-                            'When you add note\'s they will all appear here.',
-                            style: TextStyle(
-                                fontFamily: 'VarelaRound', fontSize: 20.0),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+        body:
+            //  Padding(
+            //     padding:
+            //         const EdgeInsets.symmetric(vertical: 100, horizontal: 50),
+            //     child: Center(
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Row(
+            //           children: const [
+            //             Icon(
+            //               Icons.mode_edit,
+            //               size: 40,
+            //               color: Colors.blue,
+            //             ),
+            //             Expanded(
+            //               child: Text(
+            //                 'When you add note\'s they will all appear here.',
+            //                 style: TextStyle(
+            //                     fontFamily: 'VarelaRound', fontSize: 20.0),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   )
+            Stack(
+          children: [
+            GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(20),
+              // gridDelegate:
+              //     const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+              //
+              // ),
+
+              children: [
+                Note(
+                  noteTitle: 'The Note Title',
+                  noteDescription: 'The description',
+                  dateAdded: '12/July/2022',
+                  colorCode: Color.fromRGBO(223, 96, 57, 1),
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10, bottom: 10),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.createNote);
+                  },
+                  child: const Text('+ Add Note',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'VarelaRound',
+                          color: Colors.white)),
                 ),
-              )
-            : Stack(
-                children: [
-                  GridView.builder(
-                    primary: false,
-                    padding: const EdgeInsets.all(20),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            crossAxisCount: 2),
-                    itemCount: allNotes.noteList.length,
-                    itemBuilder: (context, index) {
-                      Notes note = allNotes.noteList[index];   
-                      
-                      var finalDate =  
-                          DateFormat.yMEd().add_jms().format(note.dateAdded);
-                      return Note(
-                        noteTitle: note.noteTitle,
-                        noteDescription: note.noteDescription,
-                        dateAdded: finalDate.toString(),
-                        colorCode:  Color(0xffdf6039),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10, bottom: 10),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue)),
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.createNote);
-                        },
-                        child: const Text('+ Add Note',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'VarelaRound',
-                                color: Colors.white)),
-                      ),
-                    ),
-                  ),
-                ],
-              ));
+              ),
+            ),
+          ],
+        ));
   }
 }

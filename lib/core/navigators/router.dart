@@ -1,9 +1,10 @@
+import 'package:denote/screens/all_notes.dart';
+import 'package:denote/screens/edit_note.dart';
+import 'package:denote/screens/view_note.dart';
 import 'package:flutter/material.dart';
-import 'package:mobbit/pages/all_notes.dart';
-import 'package:mobbit/pages/create_note.dart';
-import 'package:mobbit/core/navigators/routes.dart';
-import 'package:mobbit/pages/edit_note.dart';
-import 'package:mobbit/pages/view_note.dart';
+import 'package:denote/core/navigators/routes.dart';
+
+import '../../screens/create_note.dart';
 
 class Routers {
   static Route<dynamic> generateRoute(RouteSettings settings) {
