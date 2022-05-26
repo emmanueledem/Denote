@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../core/constants.dart';
 
+// ignore: must_be_immutable
 class EditNote extends StatefulWidget {
-  const EditNote({Key? key}) : super(key: key);
-  static const id = 'EditNote';
+  EditNote({Key? key, this.id}) : super(key: key);
+  int? id;
 
   @override
   State<EditNote> createState() => _EditNoteState();
@@ -14,11 +15,10 @@ class EditNote extends StatefulWidget {
 class _EditNoteState extends State<EditNote> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _noteTitle = TextEditingController();
-
   final TextEditingController _noteBody = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    Logger().d(widget.id);
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,

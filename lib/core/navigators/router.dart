@@ -13,7 +13,7 @@ class Routers {
         return _getPageRoute(
             routeName: settings.name, viewToShow: const CreateNote());
       case Routes.editNote:
-        return _getPageRoute(viewToShow: const EditNote());
+        return _getPageRoute(viewToShow:  EditNote());
       case Routes.viewNote:
         return _getPageRoute(viewToShow: const ViewNote());
       case Routes.allNotes:
