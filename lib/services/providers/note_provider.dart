@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 
 class NotesProvider extends ChangeNotifier {
   Color? colorCode;
+  List availableNote = [];
 
   void colorPicker() {
     int number = Random().nextInt(5) + 1;
@@ -23,14 +24,13 @@ class NotesProvider extends ChangeNotifier {
 
   late DatabaseHelper dbHelper;
 
-
   Future<int> addNote(Notes note) async {
     dbHelper = DatabaseHelper();
     await dbHelper.initDB();
     int result = await dbHelper.db.insert(tableNotes, note.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     notifyListeners();
-    return result.bitLength;
+    return result;
   }
 
   Future<List<Notes>> getNotesAllNotes() async {
@@ -38,6 +38,7 @@ class NotesProvider extends ChangeNotifier {
     await dbHelper.initDB();
     final List<Map<String, dynamic>> queryResponse =
         await dbHelper.db.query(tableNotes);
+    availableNote = queryResponse;
     notifyListeners();
     return queryResponse.map((e) => Notes.fromMap(e)).toList();
   }
@@ -49,4 +50,9 @@ class NotesProvider extends ChangeNotifier {
     await getNotesAllNotes();
     notifyListeners();
   }
+
+
+  
+
+
 }

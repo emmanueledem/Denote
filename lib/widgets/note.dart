@@ -1,4 +1,5 @@
 import 'package:denote/screens/edit_note.dart';
+import 'package:denote/screens/view_note.dart';
 import 'package:denote/services/providers/note_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -65,7 +66,8 @@ class NoteBox extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, Routes.viewNote);
+              Navigator.pushNamed(context, Routes.viewNote,
+                  arguments: ViewNote(id: id));
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

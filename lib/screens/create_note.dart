@@ -117,11 +117,12 @@ class _CreateNoteState extends State<CreateNote> {
                                             Provider.of<NotesProvider>(context,
                                                 listen: false);
                                         if (_formKey.currentState!.validate()) {
-                                          notesProvider.colorPicker();
                                           setState(() {
                                             FocusManager.instance.primaryFocus
                                                 ?.unfocus();
                                           });
+
+                                          notesProvider.colorPicker();
 
                                           await notesProvider.addNote(Notes(
                                               title: _noteTitle.text,

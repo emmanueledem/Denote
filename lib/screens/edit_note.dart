@@ -6,7 +6,7 @@ import '../core/constants.dart';
 // ignore: must_be_immutable
 class EditNote extends StatefulWidget {
   EditNote({Key? key, this.id}) : super(key: key);
-  int? id;
+  final int? id;
 
   @override
   State<EditNote> createState() => _EditNoteState();

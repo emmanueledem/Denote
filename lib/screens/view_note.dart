@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class ViewNote extends StatefulWidget {
-  const ViewNote({Key? key}) : super(key: key);
+  const ViewNote({Key? key, this.id}) : super(key: key);
+  final int? id;
 
   @override
   State<ViewNote> createState() => _ViewNoteState();
@@ -10,6 +12,7 @@ class ViewNote extends StatefulWidget {
 class _ViewNoteState extends State<ViewNote> {
   @override
   Widget build(BuildContext context) {
+    Logger().d(widget.id);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 169, 240, 171),
       body: SingleChildScrollView(
