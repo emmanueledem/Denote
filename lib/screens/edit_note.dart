@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../core/constants.dart';
+import '../core/constants/styles.dart';
 
 // ignore: must_be_immutable
 class EditNote extends StatefulWidget {

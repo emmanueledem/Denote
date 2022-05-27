@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:denote/core/constants/images.dart';
 import 'package:denote/services/providers/note_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:denote/core/navigators/router.dart';
@@ -7,11 +8,11 @@ import 'screens/all_notes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
- const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,18 +26,14 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: Routers.generateRoute,
           home: AnimatedSplashScreen(
               duration: 3000,
-              splash: const Text(
-                'DENOTE',
-                style: TextStyle(
-                  fontFamily: 'VarelaRound',
-                  color: Colors.white,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+              splash: const Image(
+                  width: 200,
+                  height: 200,
+                  color: Colors.blue,
+                  image: AssetImage(Appset.appLogo)),
               nextScreen: const AllTask(),
               splashTransition: SplashTransition.fadeTransition,
-              backgroundColor: Colors.blue)),
+              backgroundColor: Colors.white)),
     );
   }
 }

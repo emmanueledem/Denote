@@ -1,5 +1,8 @@
+import 'package:denote/screens/edit_note.dart';
+import 'package:denote/services/providers/note_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class ViewNote extends StatefulWidget {
   const ViewNote({Key? key, this.id}) : super(key: key);
@@ -12,9 +15,48 @@ class ViewNote extends StatefulWidget {
 class _ViewNoteState extends State<ViewNote> {
   @override
   Widget build(BuildContext context) {
+    var notesData = Provider.of<NotesProvider>(context);
     Logger().d(widget.id);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 169, 240, 171),
+      appBar: AppBar(
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 169, 240, 171),
+        elevation: 0,
+        title: const Text(
+          'Read Note',
+          style: TextStyle(color: Colors.black, fontFamily: 'VarelaRound'),
+        ),
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(Icons.more_horiz),
+            itemBuilder: (context) {
+              return const [
+                PopupMenuItem(
+                  value: 'edit',
+                  child: Text('Edit Note'),
+                ),
+                PopupMenuItem(
+                  value: 'delete',
+                  child: Text('Delete Note'),
+                )
+              ];
+            },
+            onSelected: (String value) async {
+              //  var noteProvider =
+              //      Provider.of<NotesProvider>(context, listen: false);
+              //  value == 'delete'
+              //      ? await noteProvider.deleteNote(id)
+              //      : Navigator.pushNamed(context, Routes.editNote,
+              //          arguments: EditNote(
+              //            id: id,
+              //          ));
+              //  Logger().d(id);
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(

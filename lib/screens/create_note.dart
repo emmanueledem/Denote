@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import '../core/constants.dart';
+import '../core/constants/styles.dart';
 import '../services/providers/note_provider.dart';
 
 class CreateNote extends StatefulWidget {
@@ -26,19 +26,10 @@ class _CreateNoteState extends State<CreateNote> {
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.edit,
-                color: Colors.blue,
-              ),
-              Text(
-                'Create Note',
-                style:
-                    TextStyle(color: Colors.black, fontFamily: 'VarelaRound'),
-              ),
-            ],
+          centerTitle: true,
+          title: const Text(
+            'Create Note',
+            style: TextStyle(color: Colors.black, fontFamily: 'VarelaRound'),
           ),
         ),
         body: ModalProgressHUD(
@@ -62,9 +53,9 @@ class _CreateNoteState extends State<CreateNote> {
                             child: Column(
                               children: [
                                 TextFormField(
+                                  maxLength: 35,
                                   controller: _noteTitle,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
                                       color: Colors.black87,
                                       fontFamily: 'VarelaRound',
                                       height: 1.3),
@@ -85,7 +76,6 @@ class _CreateNoteState extends State<CreateNote> {
                                   controller: _noteBody,
                                   maxLines: 5,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
                                       color: Colors.black87,
                                       fontFamily: 'VarelaRound',
                                       height: 1.3),
