@@ -42,7 +42,6 @@ class _AllTaskState extends State<AllTask> {
             Image(
                 width: 40,
                 height: 40,
-                color: Colors.blue,
                 image: AssetImage(Appset.appLogo)),
             Text(
               'Denote',

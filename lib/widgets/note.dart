@@ -35,9 +35,6 @@ class NoteBox extends StatelessWidget {
                         colorCode: colorCode.toString(),
                       ),
                     )));
-
-        // Navigator.pushNamed(context, Routes.viewNote,
-        //     arguments: ViewNote(id: id));
       },
       child: Container(
         decoration: BoxDecoration(

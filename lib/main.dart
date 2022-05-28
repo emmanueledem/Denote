@@ -27,10 +27,7 @@ class MyApp extends StatelessWidget {
           home: AnimatedSplashScreen(
               duration: 3000,
               splash: const Image(
-                  width: 200,
-                  height: 200,
-                  color: Colors.blue,
-                  image: AssetImage(Appset.appLogo)),
+                  width: 200, height: 200, image: AssetImage(Appset.appLogo)),
               nextScreen: const AllTask(),
               splashTransition: SplashTransition.fadeTransition,
               backgroundColor: Colors.white)),
