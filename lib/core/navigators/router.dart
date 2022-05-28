@@ -1,3 +1,4 @@
+import 'package:denote/model/notes.dart';
 import 'package:denote/screens/all_notes.dart';
 import 'package:denote/screens/edit_note.dart';
 import 'package:denote/screens/view_note.dart';
@@ -13,9 +14,13 @@ class Routers {
         return _getPageRoute(
             routeName: settings.name, viewToShow: const CreateNote());
       case Routes.editNote:
-        return _getPageRoute(viewToShow:  EditNote());
+        return _getPageRoute(viewToShow:  EditNote(
+          notes: settings.arguments as Notes,
+        ));
       case Routes.viewNote:
-        return _getPageRoute(viewToShow: const ViewNote());
+        return _getPageRoute(viewToShow:  ViewNote(
+          notes :settings.arguments as Notes,
+        ));
       case Routes.allNotes:
         return _getPageRoute(viewToShow: const AllTask());
       default:

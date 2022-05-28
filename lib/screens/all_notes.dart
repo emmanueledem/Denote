@@ -3,7 +3,6 @@ import 'package:denote/services/providers/note_provider.dart';
 import 'package:denote/widgets/error_alert.dart';
 import 'package:denote/widgets/note.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import '../core/navigators/navigators.dart';
 import '../utils/format_color.dart';

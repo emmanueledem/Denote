@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:denote/model/db.config.dart';
 import 'package:denote/model/notes.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
 import 'package:sqflite/sqflite.dart';
 
 class NotesProvider extends ChangeNotifier {
@@ -43,13 +42,22 @@ class NotesProvider extends ChangeNotifier {
       orderBy: "id DESC",
     );
     availableNote = queryResponse;
-      ifcomplete = false;
-    
+    ifcomplete = false;
+
     notifyListeners();
     return queryResponse.map((e) => Notes.fromMap(e)).toList();
   }
 
-  Future<void> deleteNote(int id) async {
+  Future<void> editNote(Notes note) async {
+    dbHelper = DatabaseHelper();
+    await dbHelper.initDB();
+    await dbHelper.db.update(tableNotes, note.toMap(),
+        where: "id = ?", whereArgs: [note.id]);
+    await getNotesAllNotes();
+    notifyListeners();
+  }
+
+  Future<void> deleteNote(id) async {
     dbHelper = DatabaseHelper();
     await dbHelper.initDB();
     await dbHelper.db.delete(tableNotes, where: "id = ?", whereArgs: [id]);

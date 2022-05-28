@@ -1,12 +1,13 @@
+import 'package:denote/model/notes.dart';
+import 'package:denote/services/providers/note_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import '../core/constants/styles.dart';
 
-// ignore: must_be_immutable
 class EditNote extends StatefulWidget {
-  EditNote({Key? key, this.id}) : super(key: key);
-  final int? id;
+  const EditNote({Key? key, required this.notes}) : super(key: key);
+  final Notes notes;
 
   @override
   State<EditNote> createState() => _EditNoteState();
@@ -14,11 +15,12 @@ class EditNote extends StatefulWidget {
 
 class _EditNoteState extends State<EditNote> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _noteTitle = TextEditingController();
-  final TextEditingController _noteBody = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Logger().d(widget.id);
+    final TextEditingController _noteTitle =
+        TextEditingController(text: widget.notes.title);
+    final TextEditingController _noteBody =
+        TextEditingController(text: widget.notes.description);
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.black,
@@ -112,20 +114,18 @@ class _EditNoteState extends State<EditNote> {
                                             FocusManager.instance.primaryFocus
                                                 ?.unfocus();
                                           });
-                                          // var snackBar = SnackBar(
-                                          //   backgroundColor: appColour,
-                                          //   duration:
-                                          //       const Duration(seconds: 5),
-                                          //   content: Text(
-                                          //     dishprovider.updateResponse
-                                          //         .toString(),
-                                          //     style: const TextStyle(
-                                          //         color: Colors.white),
-                                          //   ),
-                                          // );
-                                          // Scaffold.of(context)
-                                          //     // ignore: deprecated_member_use
-                                          //     .showSnackBar(snackBar);
+                                          var notesData =
+                                              Provider.of<NotesProvider>(
+                                                  context,
+                                                  listen: false);
+                                          await notesData.editNote(Notes(
+                                              id: widget.notes.id,
+                                              title: _noteTitle.text,
+                                              description: _noteBody.text,
+                                              time: widget.notes.time,
+                                              colorCode:
+                                                  widget.notes.colorCode));
+                                          Navigator.pop(context);
                                         }
                                       },
                                       minWidth: 365,

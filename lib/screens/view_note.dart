@@ -1,12 +1,17 @@
-import 'package:denote/screens/edit_note.dart';
+import 'package:denote/core/navigators/navigators.dart';
+import 'package:denote/model/notes.dart';
 import 'package:denote/services/providers/note_provider.dart';
+import 'package:denote/utils/format_color.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class ViewNote extends StatefulWidget {
-  const ViewNote({Key? key, this.id}) : super(key: key);
-  final int? id;
+  const ViewNote({
+    Key? key,
+    required this.notes,
+  }) : super(key: key);
+
+  final Notes notes;
 
   @override
   State<ViewNote> createState() => _ViewNoteState();
@@ -15,14 +20,13 @@ class ViewNote extends StatefulWidget {
 class _ViewNoteState extends State<ViewNote> {
   @override
   Widget build(BuildContext context) {
-    var notesData = Provider.of<NotesProvider>(context);
-    Logger().d(widget.id);
+    Color color = stringToColor(widget.notes.colorCode);
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 169, 240, 171),
+      backgroundColor: color,
       appBar: AppBar(
         centerTitle: true,
         foregroundColor: Colors.black,
-        backgroundColor: const Color.fromARGB(255, 169, 240, 171),
+        backgroundColor: color,
         elevation: 0,
         title: const Text(
           'Read Note',
@@ -44,15 +48,21 @@ class _ViewNoteState extends State<ViewNote> {
               ];
             },
             onSelected: (String value) async {
-              //  var noteProvider =
-              //      Provider.of<NotesProvider>(context, listen: false);
-              //  value == 'delete'
-              //      ? await noteProvider.deleteNote(id)
-              //      : Navigator.pushNamed(context, Routes.editNote,
-              //          arguments: EditNote(
-              //            id: id,
-              //          ));
-              //  Logger().d(id);
+              var noteProvider =
+                  Provider.of<NotesProvider>(context, listen: false);
+              if (value == 'delete') {
+                await noteProvider.deleteNote(widget.notes.id);
+                Navigator.pop(context);
+              } else {
+                Navigator.pushNamed(context, Routes.editNote,
+                    arguments: Notes(
+                      id: widget.notes.id,
+                      title: widget.notes.title,
+                      description: widget.notes.description,
+                      time: widget.notes.time,
+                      colorCode: widget.notes.colorCode,
+                    ));
+              }
             },
           ),
         ],
@@ -63,24 +73,24 @@ class _ViewNoteState extends State<ViewNote> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                'My first Note',
-                style: TextStyle(
+                widget.notes.title.toString(),
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'VarelaRound',
                     fontSize: 25.0),
               ),
               Text(
-                '12/4/2012 19:45 PM',
-                style: TextStyle(fontSize: 14.0),
+                widget.notes.time.toString(),
+                style: const TextStyle(fontSize: 14.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
-                ' An fassara daga Ingilishi-A cikin wallafe-wallafe da ƙira mai hoto, Lorem ipsum rubutun wuri ne da aka saba amfani da shi don nuna sigar gani na takarda ko nau in rubutu ba tare da dogaro da abun ciki mai maana ba. Ana iya amfani da Lorem ipsum azaman mai riƙewa kafin a sami kwafin ƙarshe',
-                style: TextStyle(
+                widget.notes.description.toString(),
+                style: const TextStyle(
                     fontSize: 18.0,
                     fontFamily: 'VarelaRound',
                     fontWeight: FontWeight.w500),

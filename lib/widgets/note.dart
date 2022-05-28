@@ -1,10 +1,6 @@
-import 'package:denote/screens/edit_note.dart';
+import 'package:denote/model/notes.dart';
 import 'package:denote/screens/view_note.dart';
-import 'package:denote/services/providers/note_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
-import '../core/navigators/navigators.dart';
 
 // ignore: must_be_immutable
 class NoteBox extends StatelessWidget {
@@ -27,8 +23,21 @@ class NoteBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.viewNote,
-            arguments: ViewNote(id: id));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ViewNote(
+                      notes: Notes(
+                        id: id,
+                        title: noteTitle,
+                        description: noteDescription,
+                        time: dateAdded,
+                        colorCode: colorCode.toString(),
+                      ),
+                    )));
+
+        // Navigator.pushNamed(context, Routes.viewNote,
+        //     arguments: ViewNote(id: id));
       },
       child: Container(
         decoration: BoxDecoration(
