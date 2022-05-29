@@ -48,7 +48,9 @@ class NoteBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  noteTitle,
+                  noteTitle.length > 30
+                      ? noteTitle.substring(0, 30) + '...'
+                      : noteTitle,
                   style: const TextStyle(
                       fontSize: 15.0,
                       fontFamily: 'VarelaRound',
